@@ -1,0 +1,50 @@
+swagger: "2.0"
+info:
+  description: "Sample API for feed prediciton for retail outlets"
+  version: "1.0.0"
+  title: "SEM Feed Predicition "
+tags:
+  - name: "RetailPredict"
+    description: "Predictions for retail items based on description"
+schemes:
+  - "https"
+  - "http"
+paths:
+ /retailFeedPredict:
+    post:
+      tags:
+      - "RetailPredict"
+      summary: "Make predictions for new retail feed products"
+      description: ""
+      operationId: "Retail Feed Predict"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Array of products with functional determining key and descriptions for predictions"
+        required: true
+        schema: 
+            type: "array"
+            items: 
+              $ref: "#/definitions/feedProduct"
+      responses:
+        "200":
+          description: "success!"
+          schema:
+            type: "array"
+            items:
+              enum:
+                - "Hat"
+                - "Sweater"
+                - "Pants"
+definitions:
+  feedProduct:
+    type: "object"
+    properties:
+      id: 
+        type: "string"
+      description:
+        type: "string"

@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component, useEffect} from 'react';
 //import axios from 'axios';
 //import {AiOutlineSearch} from 'react-icons/ai';
 
 //file upload component
-
 
 
 
@@ -75,7 +74,7 @@ export default class DataForm extends Component {
                             <form onSubmit={this.handleSubmit}>
                                 {/*make into a text box, make button below*/}
                                 <textarea type="input" name={"description"} placeholder={"Search Description"} onChange={this.handleInputChanged}/>
-                                <input type={"file"} name={"file"}/>
+                                <input className={"file-upload"} type={"file"} name={"file"}/>
                                 <button type="submit" id="search-button" className="btn btn-primary">
                                     <i>Search</i>
                                 </button>

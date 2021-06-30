@@ -1,0 +1,116 @@
+@import 'styles/background.scss';
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
+
+.form-container {
+    background-color: rgba(255, 255, 255, .15);
+    backdrop-filter: blur(2px);
+    padding: 150px;
+    border: .1px solid rgb(144, 144, 144);
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+.pred-container {
+    background-color: rgba(255, 255, 255, .15);
+    backdrop-filter: blur(2px);
+    padding: 50px;
+    margin-right: 50px;
+    margin-left: 50px;
+    border: .1px solid rgb(144, 144, 144);
+    margin-top: 75px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+.heading {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.file-upload {
+
+}
+
+textarea {
+    display: block;
+    height: 100px;
+    width: 400px;
+    text-align: center;
+
+}
+
+#search-button {
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+
+}
+
+
+#root > div > div {
+}
+
+
+
+.table-container {
+    display:flex;
+    justify-content: center;
+
+}
+
+table {
+    max-width: 80%;
+}
+
+#title {
+    text-align: center;
+    font-family: arial, sans-serif;
+}
+
+#categories {
+    text-align: center;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    border: 3px solid #ddd;
+    width: 100%;
+}
+
+#categories td, #categories th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#categories tr:nth-child(even){background-color: #f2f2f2;}
+
+#categories tr:hover {background-color: #ddd;}
+
+#categories th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #787878;
+    color: white;
+}
+
+table {
+
+}

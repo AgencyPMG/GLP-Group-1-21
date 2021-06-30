@@ -4,32 +4,40 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 def train_conv_net():
     """ Train conv net on images """
+    #HERE Get data and split it in diferent directories for the train generator
+    #HERE Split into train and test to verify that the code works
 
-    #HERE verify addressess
+    #HERE verify addressess and params
     weights_address = 'backend/weights'
-    images_address = 'train/images'
+    images_address_tr = 'train/images_tr'
+    images_address_tr = 'train/images_ts'
+    num_classes = 5
+    batch_size = 1000
+    x_pixels = 150
+    y_pixels = 150
 
-    #HERE verify image params
-    train_datagen = ImageDataGenerator(
-        rescale=1./255,
-        horizontal_flip=True,
-        rotation_range=20,
-        width_shift_range=0.15,
-        height_shift_range=0.15,
-        fill_mode='wrap'
-    )
+    epochs = 150
 
-    #HERE verify params
+    train_datagen = ImageDataGenerator(rescale=1./255)
+
     train_generator = train_datagen.flow_from_directory(
-        images_address,
-        target_size=(150,150),
-        batch_size=10,
-        class_mode='binary'
+        images_address_tr,
+        target_size=(x_pixels,y_pixels),
+        batch_size=batch_size,
+        class_mode='categorical'
     )
 
-    #HERE check shape of network and number of layers
+    test_datagen = ImageDataGenerator(rescale=1./255)
+
+    test_generator = train_datagen.flow_from_directory(
+        images_address_ts,
+        target_size=(x_pixels,y_pixels),
+        batch_size=batch_size,
+        class_mode='categorical'
+    )
+
     model = tf.keras.models.Sequential([
-        tf.keras.layers.Conv2D(16, (3,3), activation='relu', input_shape=(150,150,3)),
+        tf.keras.layers.Conv2D(16, (3,3), activation='relu', input_shape=(x_pixels,y_pixels,3)),
         tf.keras.layers.MaxPooling2D(2,2),
         tf.keras.layers.Conv2D(32, (3,3), activation='relu'),
         tf.keras.layers.MaxPooling2D(2,2),
@@ -39,14 +47,19 @@ def train_conv_net():
         tf.keras.layers.MaxPooling2D(2,2),
         tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
         tf.keras.layers.MaxPooling2D(2,2),
-        tf.keras.layers.Flatten(input_shape=(150,150,3)),
-        tf.keras.layers.Dense(150, activation='relu'),
-        tf.keras.layers.Dense(1, activation='sigmoid')  # two classes, so same as softmax
+        tf.keras.layers.Flatten(input_shape=(x_pixels,y_pixels,3)),
+        tf.keras.layers.Dense(x_pixels, activation='relu'),
+        tf.keras.layers.Dense(num_classes, activation='softmax') 
     ])
 
-    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
+    model.compile(optimizer='adam', loss='sparse_crossentropy', metrics=['acc'])
 
-    model.fit(train_generator)
+    history = model.fit(
+        train_generator,
+        epochs=epochs
+        )
+
+    model.evaluate(test_generator)
 
     model.load_weights(weights_address)
 

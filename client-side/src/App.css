@@ -45,6 +45,16 @@ textarea {
 }
 
 
+
+.table-container {
+    display:flex;
+    justify-content: left;
+}
+
+table {
+    max-width: 80%;
+}
+
 #title {
     text-align: center;
     font-family: arial, sans-serif;

@@ -37,13 +37,15 @@ class PredictionPage extends Component {
         return (
             <div>
                 <h1>This is our prediction blah blah blah</h1>
-                <h2>Confidence Prediction Table</h2>
-                <table id={"categories"}>
-                    <tbody>
-                    <tr>{this.renderTableHeader()}</tr>
-                    {this.renderTableData()}
-                    </tbody>
-                </table>
+                <h2 className={"heading-pred"}>Confidence Prediction Table</h2>
+                <div className={"table-container"}>
+                    <table id={"categories"}>
+                        <tbody>
+                        <tr>{this.renderTableHeader()}</tr>
+                        {this.renderTableData()}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     }

@@ -1,5 +1,6 @@
 import flask as Flask
 from flask_restful import Resource, Api, reqparse
+from src.backend.classifier import Classifier
 
 
 app = Flask(__name__)

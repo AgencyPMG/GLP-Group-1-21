@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-//import axios from 'axios';
+import axios from 'axios';
 //import {AiOutlineSearch} from 'react-icons/ai';
 
 //file upload component
-
-
-
 
 export default class DataForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
           //add global variable here -- not thread safe
-            picture: null
+            picture: null,
+            isLoaded: false,
+            data: null,
+            errorMessage: ''
         };
     }
-
 
     //*********************************************************
     //for file upload and all
@@ -23,6 +22,7 @@ export default class DataForm extends Component {
     handleFileChange = event => {
         this.setState({picture: event.target.files[0]});
     }
+
     handleFileUpload = () => {
         const fileData = new FormData();
 
@@ -35,9 +35,6 @@ export default class DataForm extends Component {
         console.log('file uploaded');
 
         //axios.post('', fileData);
-
-
-
     }
 
 
@@ -47,7 +44,7 @@ export default class DataForm extends Component {
         this.setState({description: e.target.value});
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
         this.props.history.push('/predict')
 
@@ -57,15 +54,23 @@ export default class DataForm extends Component {
             description
         };
 
-/*        axios
-            .post('', search)
-            .then(() => console.log('search made'))
-            .catch(err => {
-                console.log(err);
-            })*/
+        // test body form to trigger backend response
+        var bodyFormData = new FormData();
+        bodyFormData.append('description', 'example description');
+        bodyFormData.append('imageData', 'example image stub');
 
+        await axios.post('http://127.0.0.1:5000/predict', bodyFormData)
+            .then((result) => {
+                this.setState({
+                    isLoaded: true,
+                    data: result,
+                })
+            })
+            .catch(error => {
+                this.setState({errorMessage: error.message});
+                console.error('There was an error!', error);
+            });
     };
-
 
     render() {
         return (

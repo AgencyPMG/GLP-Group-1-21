@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import React, {Component, useEffect} from 'react';
+//import axios from 'axios';
 //import {AiOutlineSearch} from 'react-icons/ai';
 
 //file upload component
@@ -9,16 +11,22 @@ export default class DataForm extends Component {
         super(props);
         this.state = {
           //add global variable here -- not thread safe
-            picture: null,
+            description: '',
+            age: '',
+            gender: '',
+            size: '',
+            image_url: ''
             isLoaded: false,
-            data: null,
             errorMessage: ''
         };
+        this.handleInputChanged = this.handleInputChanged.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     //*********************************************************
     //for file upload and all
     //do it separately first, then see if I can combine the two
+    /*
     handleFileChange = event => {
         this.setState({picture: event.target.files[0]});
     }
@@ -36,23 +44,18 @@ export default class DataForm extends Component {
 
         //axios.post('', fileData);
     }
-
+*/
 
 //*********************************************************
 
     handleInputChanged = (e) => {
-        this.setState({description: e.target.value});
+        this.setState({[ e.target.name]: e.target.value });
     }
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        this.props.history.push('/predict')
+        this.props.history.push('/predict') //redirects to predict route
 
-        const description = this.state;
-
-        const search = {
-            description
-        };
 
         // test body form to trigger backend response
         var bodyFormData = new FormData();
@@ -76,11 +79,16 @@ export default class DataForm extends Component {
         return (
             <div className={'page-container'}>
                 <div className={"form-container"}>
-                        <h1 className="heading">Input Data</h1>
+                        <h1 className="heading">Find Product Category</h1>
+                    <div className={"container"}>
                             <form onSubmit={this.handleSubmit}>
                                 {/*make into a text box, make button below*/}
-                                <textarea type="input" name={"description"} placeholder={"Search Description"} onChange={this.handleInputChanged}/>
-                                <input type={"file"} name={"file"}/>
+                                {/*<input className={"file-upload"} type={"file"} name={"file"}/>*/}
+                                <textarea className={"text-box"} name={"description"} placeholder={"Description"} onChange={this.handleInputChanged}/>
+                                <input className={"input-form"} type={"text"} name={"gender"} placeholder={"gender"} onChange={this.handleInputChanged}/>
+                                <input className={"input-form"}  type={"text"} name={"age"} placeholder={"age group"} onChange={this.handleInputChanged}/>
+                                <input className={"input-form"}  type={"text"} name={"size"} placeholder={"size"} onChange={this.handleInputChanged}/>
+                                <input className={"input-form"}  type={"text"} name={"image-url"} placeholder={"image url"} onChange={this.handleInputChanged}/>
                                 <button type="submit" id="search-button" className="btn btn-primary">
                                     <i>Search</i>
                                 </button>

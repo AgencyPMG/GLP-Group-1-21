@@ -9,7 +9,6 @@ class PredictionPage extends Component {
             categories: [
                 {category: "jeans", prediction: "95%"},
                 {category: "shirt", prediction: "5%"}
-
             ]
         }
         }
@@ -35,8 +34,8 @@ class PredictionPage extends Component {
 
     render() {
         return (
-            <div>
-                <h1>This is our prediction blah blah blah</h1>
+            <div className={"pred-container"}>
+                <h1>Model Prediction</h1>
                 <h2 className={"heading-pred"}>Confidence Prediction Table</h2>
                 <div className={"table-container"}>
                     <table id={"categories"}>

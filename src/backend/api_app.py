@@ -1,8 +1,9 @@
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
+#from src.backend.classifier import Classifier
 
-app = Flask(__name__, static_url_path='', static_folder='client-side/build')
+app = Flask(__name__)
 CORS(app)
 api = Api(app)
 
@@ -18,6 +19,5 @@ def predict():
 
     response = jsonify({'description': itemDescription,'gender':gender,'age':age,'size':size,'image-url':image_url})
     return response
-
 
 

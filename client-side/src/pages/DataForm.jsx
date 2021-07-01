@@ -82,9 +82,7 @@ export default class DataForm extends Component {
                                 <input className={"input-form"}  type={"text"} name={"age"} placeholder={"age group"} onChange={this.handleInputChanged}/>
                                 <input className={"input-form"}  type={"text"} name={"size"} placeholder={"size"} onChange={this.handleInputChanged}/>
                                 <input className={"input-form"}  type={"text"} name={"image-url"} placeholder={"image url"} onChange={this.handleInputChanged}/>
-                                <button type="submit" id="search-button" className="btn btn-primary">
-                                    <i>Search</i>
-                                </button>
+                                <button type="submit" id="search-button" className="btn-gradient blue">Submit</button>
                             </form>
                     </div>
                 </div>

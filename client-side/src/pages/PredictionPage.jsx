@@ -34,16 +34,21 @@ class PredictionPage extends Component {
 
     render() {
         return (
-            <div className={"pred-container"}>
-                <h1>Model Prediction</h1>
-                <h2 className={"heading-pred"}>Confidence Prediction Table</h2>
-                <div className={"table-container"}>
-                    <table id={"categories"}>
-                        <tbody>
-                        <tr>{this.renderTableHeader()}</tr>
-                        {this.renderTableData()}
-                        </tbody>
-                    </table>
+            <div className={"page-container"}>
+                <div className={"pred-container"}>
+                    <h1>Model Prediction</h1>
+                    <h2 className={"heading-pred"}>Confidence Prediction Table</h2>
+                    <div className={"table-container"}>
+                        <table id={"categories"}>
+                            <tbody>
+                            <tr>{this.renderTableHeader()}</tr>
+                            {this.renderTableData()}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className={"button-container"}>
+                    <a type="submit" href="/" id="search-button" className="btn-gradient blue">Return</a>
+                    </div>
                 </div>
             </div>
         )

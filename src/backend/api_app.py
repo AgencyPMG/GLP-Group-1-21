@@ -9,10 +9,14 @@ api = Api(app)
 # stub route to make sure requests from the frontend work
 @app.route('/predict', methods =['POST'])
 def predict():
-    response = jsonify({'some': 'data'})
-
+    
     itemDescription = request.form.get('description')
-    imageData = request.form.get('imageData')
+    gender = request.form.get('gender')
+    age = request.form.get('age')
+    size = request.form.get('size')
+    image_url = request.form.get('image-url')
+
+    response = jsonify({'description': itemDescription,'gender':gender,'age':age,'size':size,'image-url':image_url})
     return response
 
 class RalphLaurenFeedPredictions(Resource):

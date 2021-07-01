@@ -10,22 +10,24 @@ from src.backend.classifier import Classifier
 app = Flask(__name__)
 api = Api(app)
 
+UPLOAD_FOLDER = 'static/uploads/'
+app.secret_key = "secret key"
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
 class RalphLaurenFeedPredictions(Resource):
-	def get(self):
+    def get(self):
+        
+        upload_file()
+        
 		# Will eventually make batch predictions
-		pass
+        pass
 
 
 api.add_resource(RalphLaurenFeedPredictions, '/ralph_lauren_feed_predict')
 
 
-#Code to ruploaded file and store it in a folder
-
-
-UPLOAD_FOLDER = 'static/uploads/'
-app.secret_key = "secret key"
-
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 # Allowed file type extensions
@@ -37,6 +39,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+# Code to run uploaded file and store it in a folder
 
 @app.route('/uploader', methods = ['POST'])
 def upload_file():
@@ -57,7 +60,3 @@ def upload_file():
         print('Allowed file types are - png, jpg, jpeg, gif')
         
 
-
-
-if __name__ == '__main__':
-	app.run()

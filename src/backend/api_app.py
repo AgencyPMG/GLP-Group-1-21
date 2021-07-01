@@ -1,10 +1,25 @@
 import os
-from flask import Flask, request
+from flask import request
 from werkzeug.utils import secure_filename
+
+from flask import Flask
+from flask_restful import Resource, Api, reqparse
+from src.backend.classifier import Classifier
 
 
 app = Flask(__name__)
+api = Api(app)
 
+class RalphLaurenFeedPredictions(Resource):
+	def get(self):
+		# Will eventually make batch predictions
+		pass
+
+
+api.add_resource(RalphLaurenFeedPredictions, '/ralph_lauren_feed_predict')
+
+
+#Code to ruploaded file and store it in a folder
 
 
 UPLOAD_FOLDER = 'static/uploads/'

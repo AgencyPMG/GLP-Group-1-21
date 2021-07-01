@@ -1,4 +1,7 @@
 @import 'styles/background.scss';
+* {
+    font-family: 'Roboto Condensed', sans-serif;
+}
 
 html, body {
     height: 100%;
@@ -9,6 +12,10 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+input {
+    text-align: center;
+}
+
 
 .page-container {
     display: flex;
@@ -16,6 +23,8 @@ body {
     align-items: center;
     min-height: 70vh;
 }
+
+
 
 .form-container {
     background-color: rgba(255, 255, 255, .15);
@@ -37,24 +46,42 @@ body {
     margin-top: 75px;
     margin-bottom: 15px;
     border-radius: 10px;
+
+}
+
+.pred-container h1, h2 {
+    font-weight: bold;
+    color: #4366a0;
 }
 
 .heading {
     text-align: center;
-    font-family: 'Roboto', sans-serif;
-
+    font-weight: bold;
+    color: #4366a0;
 }
 
-.file-upload {
 
-}
 
 textarea {
     display: block;
     height: 100px;
     width: 400px;
     text-align: center;
+    border-radius: 5px;
+    border: .1px solid rgb(144, 144, 144);
 
+}
+
+.input-form {
+    margin: 4px;
+    border-radius: 50px;
+    border: .1px solid rgb(144, 144, 144);
+
+}
+
+
+.text-box {
+    margin: 10px auto;
 }
 
 #search-button {

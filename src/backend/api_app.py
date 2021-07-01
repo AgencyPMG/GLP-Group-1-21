@@ -57,3 +57,7 @@ def upload_file():
         print('Allowed file types are - png, jpg, jpeg, gif')
         
 
+
+
+if __name__ == '__main__':
+	app.run()

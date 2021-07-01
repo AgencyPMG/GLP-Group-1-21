@@ -1,18 +1,18 @@
+import sys
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-
 
 def train_conv_net():
     """ Train conv net on images """
     #HERE Get data and split it in diferent directories for the train generator
-    #HERE Split into train and test to verify that the code works
 
     #HERE verify addressess and params
+    NUM_CLASSES = 5
+    BATCH_SIZE = 1024
+
     weights_address = 'backend/weights'
     images_address_tr = 'train/images_tr'
     images_address_tr = 'train/images_ts'
-    num_classes = 5
-    batch_size = 1000
     x_pixels = 150
     y_pixels = 150
 
@@ -23,7 +23,7 @@ def train_conv_net():
     train_generator = train_datagen.flow_from_directory(
         images_address_tr,
         target_size=(x_pixels,y_pixels),
-        batch_size=batch_size,
+        batch_size=BATCH_SIZE,
         class_mode='categorical'
     )
 
@@ -32,7 +32,7 @@ def train_conv_net():
     test_generator = train_datagen.flow_from_directory(
         images_address_ts,
         target_size=(x_pixels,y_pixels),
-        batch_size=batch_size,
+        batch_size=BATCH_SIZE,
         class_mode='categorical'
     )
 
@@ -49,7 +49,7 @@ def train_conv_net():
         tf.keras.layers.MaxPooling2D(2,2),
         tf.keras.layers.Flatten(input_shape=(x_pixels,y_pixels,3)),
         tf.keras.layers.Dense(x_pixels, activation='relu'),
-        tf.keras.layers.Dense(num_classes, activation='softmax') 
+        tf.keras.layers.Dense(NUM_CLASSES, activation='softmax') 
     ])
 
     model.compile(optimizer='adam', loss='sparse_crossentropy', metrics=['acc'])
@@ -59,7 +59,12 @@ def train_conv_net():
         epochs=epochs
         )
 
-    model.evaluate(test_generator)
+    acc = model.evaluate(test_generator)
 
-    model.load_weights(weights_address)
+    # sys.stdout.write(model.metrics_names)
+    sys.stdout.write(acc)
 
+    model.save_weights(weights_address)
+
+if __name__ =='__main__':
+    train_conv_net()

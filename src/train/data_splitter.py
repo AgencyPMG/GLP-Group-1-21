@@ -14,15 +14,17 @@ def split_data(base, training, testing, split_size=0.9):
         cat4 = []
         cat5 = []
         for datum in data:
+            name_cat = datum.split('_')
+            
             if categories[0] in datum:
                 cat1.append(datum)
-            if categories[1] in datum:
+            elif categories[1] in datum:
                 cat2.append(datum)
-            if categories[2] in datum:
+            elif categories[2] in datum:
                 cat3.append(datum)
-            if categories[3] in datum:
+            elif categories[3] in datum:
                 cat4.append(datum)
-            if categories[4] in datum:
+            elif categories[4] in datum:
                 cat5.append(datum)
                 
         return cat1, cat2, cat3, cat4, cat5

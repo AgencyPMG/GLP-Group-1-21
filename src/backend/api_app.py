@@ -19,13 +19,5 @@ def predict():
     response = jsonify({'description': itemDescription,'gender':gender,'age':age,'size':size,'image-url':image_url})
     return response
 
-class RalphLaurenFeedPredictions(Resource):
-	def get(self):
-		# Will eventually make batch predictions
-		pass
 
-api.add_resource(RalphLaurenFeedPredictions, '/ralph_lauren_feed_predict')
-
-if __name__ == '__main__':
-	app.run()
 

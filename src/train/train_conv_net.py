@@ -10,9 +10,9 @@ def train_conv_net():
     NUM_CLASSES = 5
     BATCH_SIZE = 1024
 
-    weights_address = 'backend/weights'
-    images_address_tr = 'train/images_tr'
-    images_address_tr = 'train/images_ts'
+    weights_address = 'src/backend/weights'
+    images_address_tr = 'src/train/data/training'
+    images_address_ts = 'src/train/data/testing'
     x_pixels = 150
     y_pixels = 150
 

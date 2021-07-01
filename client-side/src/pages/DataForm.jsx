@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import axios from 'axios';
 import React, {Component, useEffect} from 'react';
+import axios from 'axios';
 //import axios from 'axios';
 //import {AiOutlineSearch} from 'react-icons/ai';
 
@@ -15,7 +14,7 @@ export default class DataForm extends Component {
             age: '',
             gender: '',
             size: '',
-            image_url: ''
+            image_url: '',
             isLoaded: false,
             errorMessage: ''
         };
@@ -94,6 +93,7 @@ export default class DataForm extends Component {
                                 </button>
                             </form>
                 </div>
+            </div>
             </div>
         )
     }

@@ -35,7 +35,7 @@ class PredictionPage extends Component {
     render() {
         return (
             <div className={"pred-container"}>
-                <h1>This is our prediction blah blah blah</h1>
+                <h1>Model Prediction</h1>
                 <h2 className={"heading-pred"}>Confidence Prediction Table</h2>
                 <div className={"table-container"}>
                     <table id={"categories"}>

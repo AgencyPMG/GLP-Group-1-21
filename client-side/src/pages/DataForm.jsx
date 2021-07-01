@@ -72,14 +72,14 @@ export default class DataForm extends Component {
         return (
             <div className={'page-container'}>
                 <div className={"form-container"}>
-                        <h1 className="heading">Input Data</h1>
+                        <h1 className="heading">Find Product Category</h1>
                     <div className={"container"}>
                             <form onSubmit={this.handleSubmit}>
                                 {/*make into a text box, make button below*/}
                                 {/*<input className={"file-upload"} type={"file"} name={"file"}/>*/}
-                                <textarea className={"text-box"} name={"description"} placeholder={"Search Description"} onChange={this.handleInputChanged}/>
+                                <textarea className={"text-box"} name={"description"} placeholder={"Description"} onChange={this.handleInputChanged}/>
                                 <input className={"input-form"} type={"text"} name={"gender"} placeholder={"gender"} onChange={this.handleInputChanged}/>
-                                <input className={"input-form"}  type={"text"} name={"age"} placeholder={"age"} onChange={this.handleInputChanged}/>
+                                <input className={"input-form"}  type={"text"} name={"age"} placeholder={"age group"} onChange={this.handleInputChanged}/>
                                 <input className={"input-form"}  type={"text"} name={"size"} placeholder={"size"} onChange={this.handleInputChanged}/>
                                 <input className={"input-form"}  type={"text"} name={"image-url"} placeholder={"image url"} onChange={this.handleInputChanged}/>
                                 <button type="submit" id="search-button" className="btn btn-primary">

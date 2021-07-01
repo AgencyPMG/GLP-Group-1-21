@@ -1,15 +1,24 @@
-from flask import Flask
+from flask import Flask, jsonify, request
 from flask_restful import Resource, Api, reqparse
+from flask_cors import CORS
 
-
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='client-side/build')
+CORS(app)
 api = Api(app)
+
+# stub route to make sure requests from the frontend work
+@app.route('/predict', methods =['POST'])
+def predict():
+    response = jsonify({'some': 'data'})
+
+    itemDescription = request.form.get('description')
+    imageData = request.form.get('imageData')
+    return response
 
 class RalphLaurenFeedPredictions(Resource):
 	def get(self):
 		# Will eventually make batch predictions
 		pass
-
 
 api.add_resource(RalphLaurenFeedPredictions, '/ralph_lauren_feed_predict')
 

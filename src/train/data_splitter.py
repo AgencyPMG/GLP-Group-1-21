@@ -1,3 +1,5 @@
+import os
+import sys
 import random
 from shutil import copyfile
 
@@ -29,7 +31,7 @@ def split_data(base, training, testing, split_size=0.9):
                 
         return cat1, cat2, cat3, cat4, cat5
     
-    def fill_directories(data, training, testing, split_size):
+    def fill_directories(data, training, testing, split_size=0.9):
         train = random.sample(data, round(split_size * len(data)))
         test = list(set(data) - set(train))
         
@@ -41,10 +43,10 @@ def split_data(base, training, testing, split_size=0.9):
                 
             
     # Get all files into array and get rid of files that are empty
-    data = [x for x in os.listdir(base) if os.path.getsize(base + x) > 0]
+    data = [x for x in os.listdir(base)]# if os.path.getsize(base + x) > 0]
     
     # Split data into categories
-    cats = sort_cats_dogs(data)
+    cats = sort_categories(data)
     
     # Fill directories
     for i in range(len(cats)):
@@ -53,6 +55,6 @@ def split_data(base, training, testing, split_size=0.9):
 if __name__ =='__main__':
     training = 'src/train/data/training'
     testing = 'src/train/data/testing'
-    source = 'src/train/data'
+    source = 'src/train/data/images'
 
     split_data(source, training, testing)

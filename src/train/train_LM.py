@@ -108,7 +108,7 @@ def train():
 
     model.compile(loss="categorical_crossentropy", optimizer="adam", metrics="accuracy")
 
-    history = model.fit(data, epochs=50)
+    history = model.fit(train_data, epochs=50)
 
     ## Save model
     model.save_weights('language_model_weights')

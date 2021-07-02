@@ -21,12 +21,10 @@ EMBEDDINGS_PATH = 'src/train/data/glove.6b.50d.txt'
 
 def train():
     """ Train language model for description """
-    random.seed(1)
-
     # Language preprocessing definitions
     lemma = WordNetLemmatizer()
     nltk_tok = TweetTokenizer()
-    
+
     flatten = lambda l: np.array([x for sub in l for x in sub])
     filter_words = lambda seq: [lemma.lemmatize(word) for word in seq if word not in stopwords.words('english')]
 
@@ -38,7 +36,9 @@ def train():
 
     idx = [i for i in range(len(raw_seqs))]
     train_idx = random.sample(idx, round(SPLIT_SIZE * len(raw_seqs)))
-    test_idx = list(set(idx) - set(train_idx))
+    val_idx = random.sample(train_idx, round(0.05 * len(train_idx)))
+    train_idx = list(set(train_idx) - set(val_idx))
+    test_idx = list(set(idx) - set(train_idx) - set(val_idx))
 
     # make list of tuples
     patterns = np.array([
@@ -50,6 +50,11 @@ def train():
 
     train_patterns = patterns[train_idx, :]
     test_patterns = patterns[test_idx, :]
+    val_patterns = patterns[val_idx, :]
+
+    print('Train samples:', len(train_idx))
+    print('Validation samples:', len(val_patterns))
+    print('Test samples: ', len(test_patterns))
 
     X_tokenizer = Tokenizer(oov_token="<OOV>")
     X_tokenizer.fit_on_texts(train_patterns[:, 0])
@@ -61,6 +66,11 @@ def train():
     y_train = y_enc.fit_transform(train_patterns[:, 1])
     y_train = np.expand_dims(y_train, 1)
 
+    X_val = X_tokenizer.texts_to_sequences(val_patterns[:, 1])
+    X_val = pad_sequences(X_val, padding='post')
+
+    y_val = y_enc.fit_transform(val_patterns[:, 1])
+    y_val = np.expand_dims(y_val, 1)
 
     X_test = X_tokenizer.texts_to_sequences(test_patterns[:, 0])
     X_test = pad_sequences(X_test, padding='post')
@@ -70,13 +80,19 @@ def train():
 
     classes = len(y_enc.classes_)
 
+
+    print(classes)
+
     vocab_size = len(X_tokenizer.word_index) + 1
 
     train_data = tf.data.Dataset.from_tensor_slices((X_train, y_train))
     train_data = train_data.batch(BATCH_SIZE)
 
+    val_data = tf.data.Dataset.from_tensor_slices((X_val, y_val))
+    val_data = val_data.batch(BATCH_SIZE)
+
     test_data = tf.data.Dataset.from_tensor_slices((X_test, y_test))
-    test_data = test_data.batch(y_train.shape[0])
+    test_data = test_data.batch(BATCH_SIZE)
 
     ## Initialize GloVe weights
     embeddings_index = {}
@@ -96,19 +112,19 @@ def train():
     ## Training 
     model = tf.keras.Sequential([
         tf.keras.layers.Embedding(vocab_size, EMBEDDING_DIM, weights=[embeddings_matrix], mask_zero=True),
-        tf.keras.layers.Dropout(0.4),  
-        tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(1024, return_sequences=True)),
-        tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(1024)),
-        tf.keras.layers.Dropout(0.4), 
+        tf.keras.layers.Dropout(0.7),  
+        # tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(1024, return_sequences=True)),
+        tf.keras.layers.LSTM(512),
+        tf.keras.layers.Dropout(0.7), 
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(64, activation="relu"),
-        tf.keras.layers.Dropout(0.5),
+        tf.keras.layers.Dropout(0.6),
         tf.keras.layers.Dense(classes, activation='softmax')
     ])
 
     model.compile(loss="sparse_categorical_crossentropy", optimizer="adam", metrics="accuracy")
 
-    history = model.fit(train_data, epochs=50)
+    history = model.fit(train_data, validation_data=val_data, epochs=10)
 
     ## Save model
     model.save_weights('language_model_weights')
@@ -118,7 +134,6 @@ def train():
 
     with open('label_encoder', 'wb') as handle:
         pickle.dump(y_enc, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
 
 if __name__ == '__main__':
     train()

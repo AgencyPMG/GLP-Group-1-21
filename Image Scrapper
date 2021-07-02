@@ -1,0 +1,34 @@
+from bs4 import BeautifulSoup
+import requests
+import urllib.request
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+import pandas as pd
+df = pd.read_csv('/content/drive/MyDrive/Ralph_Lauren_Retail_Feed.csv')
+print(df.shape)
+df.head()
+
+for i in range(len(df)):
+  print (i)
+  html_page = requests.get(df['url'][i])
+  soup = BeautifulSoup(html_page.content, 'html.parser')
+  images = []
+  for img in soup.findAll('img'):
+      images.append(img.get('data-img'))
+  images = [i for i in images if i]
+
+  # setting filename and image URL
+  prod_type = df['product_type'][i]
+  sku = df['sku'][i]
+  filename = 'Images/'+prod_type+'_'+sku+'.jpg'
+  if images:
+    image_url = images[0]
+
+  # calling urlretrieve function to get resource
+  response = requests.get(image_url)
+
+  file = open(filename, "wb")
+  file.write(response.content)
+  file.close()

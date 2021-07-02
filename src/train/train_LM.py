@@ -106,7 +106,7 @@ def train():
         tf.keras.layers.Dense(classes, activation='softmax')
     ])
 
-    model.compile(loss="categorical_crossentropy", optimizer="adam", metrics="accuracy")
+    model.compile(loss="sparse_categorical_crossentropy", optimizer="adam", metrics="accuracy")
 
     history = model.fit(train_data, epochs=50)
 

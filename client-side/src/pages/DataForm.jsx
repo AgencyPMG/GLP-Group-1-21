@@ -1,5 +1,7 @@
 import React, {Component, useEffect} from 'react';
 import axios from 'axios';
+import Logo from '../assets/PMG_Logo_CMYK_FullColor_RLSD (1).png';
+import PMGLogo from '../assets/PMG_Logo_CMYK_FullColor_RLSD (1).png'
 //import axios from 'axios';
 //import {AiOutlineSearch} from 'react-icons/ai';
 
@@ -78,6 +80,7 @@ export default class DataForm extends Component {
         return (
             <div className={'page-container'}>
                 <div className={"form-container"}>
+                        <img className={"logo-photo"} src={Logo} alt={"PMG Logo"}/>
                         <h1 className="heading">Find Product Category</h1>
                     <div className={"container"}>
                             <form onSubmit={this.handleSubmit}>

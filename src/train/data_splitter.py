@@ -6,10 +6,10 @@ from shutil import copyfile
 def split_data(base, training, testing, split_size=0.9):
     categories_full = ['adults _ women _ shirts',
                     'adults _ women _ shoes',
-                    'adults _ men _ outwear _ sweatshirts',
+                    'adults _ men _ outerwear _ sweatshirts',
                     'adults _ men _ pants _ jeans',
-                    'adults _ women _ outwear _ sweaters']
-    categories = ['shirts',
+                    'adults _ women _ outerwear _ sweaters']
+    categories = ['_ shirts',
                     'shoes',
                     'sweatshirts',
                     'jeans',
@@ -22,24 +22,24 @@ def split_data(base, training, testing, split_size=0.9):
         cat5 = []
         for datum in data:
             #sys.stdout.write(str(datum))
-            #name_cat = datum.split('_')
+            name_cat = datum.split('_')
             
             if categories[0] in datum:
-                cat1.append(datum)
+                cat1.append(name_cat[-1])
             elif categories[1] in datum:
-                cat2.append(datum)
+                cat2.append(name_cat[-1])
             elif categories[2] in datum:
-                cat3.append(datum)
+                cat3.append(name_cat[-1])
             elif categories[3] in datum:
-                cat4.append(datum)
+                cat4.append(name_cat[-1])
             elif categories[4] in datum:
-                cat5.append(datum)
+                cat5.append(name_cat[-1])
             else:
                 sys.stdout.write('NOT FOUND ')
                 
         return cat1, cat2, cat3, cat4, cat5
     
-    def fill_directories(data, training, testing, split_size=0.9):
+    def fill_directories(data, training, testing, cat, split_size=0.9):
         train = random.sample(data, round(split_size * len(data)))
         test = list(set(data) - set(train))
 
@@ -51,10 +51,10 @@ def split_data(base, training, testing, split_size=0.9):
              # sys.stdout.write(' ! ')
              # sys.stdout.write(str(training + x))
              # sys.stdout.write(' ! ')
-             copyfile(base + x, training + x)
+             copyfile(base + categories_full[cat] + '_' + x, training + categories_full[cat] + '/' + x)
                 
         for x in test:
-             copyfile(base + x, testing + x)
+             copyfile(base + categories_full[cat] + '_' + x, testing + categories_full[cat] + '/' + x)
                 
             
     # Get all files into array and get rid of files that are empty
@@ -64,7 +64,8 @@ def split_data(base, training, testing, split_size=0.9):
     cats = sort_categories(data)
     # Fill directories
     for i in range(len(cats)):
-        fill_directories(cats[i], training, testing, split_size)
+        sys.stdout.write('Filling category ' + str(i) + '. \n')
+        fill_directories(cats[i], training, testing, i, split_size)
 
 if __name__ =='__main__':
     training = 'src/train/data/training/'

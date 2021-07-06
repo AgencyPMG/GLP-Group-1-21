@@ -18,7 +18,7 @@ def train_conv_net():
 
     train_datagen = ImageDataGenerator(rescale=1./255)
     
-    sys.stdout.write('Generating train files')
+    sys.stdout.write('Generating train files\n')
     
     train_generator = train_datagen.flow_from_directory(
         images_address_tr,
@@ -29,7 +29,7 @@ def train_conv_net():
 
     test_datagen = ImageDataGenerator(rescale=1./255)
     
-    sys.stdout.write('Generating test files')
+    sys.stdout.write('Generating test files\n')
 
     test_generator = train_datagen.flow_from_directory(
         images_address_ts,
@@ -56,13 +56,13 @@ def train_conv_net():
 
     model.compile(optimizer='adam', loss='sparse_crossentropy', metrics=['acc'])
 
-    sys.stdout.write('Training...')
+    sys.stdout.write('Training...\n')
 
     history = model.fit(
         train_generator,
         epochs=epochs
         )
-    sys.stdout.write('Training done!!!')
+    sys.stdout.write('Training done!!!\n')
 
     acc = model.evaluate(test_generator)
 

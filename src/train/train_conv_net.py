@@ -4,8 +4,6 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 def train_conv_net():
     """ Train conv net on images """
-    #HERE Get data and split it in diferent directories for the train generator
-
     #HERE verify addressess and params
     NUM_CLASSES = 5
     BATCH_SIZE = 1024
@@ -13,13 +11,15 @@ def train_conv_net():
     weights_address = 'src/backend/weights'
     images_address_tr = 'src/train/data/training'
     images_address_ts = 'src/train/data/testing'
-    x_pixels = 150
-    y_pixels = 150
+    x_pixels = 400
+    y_pixels = 550
 
     epochs = 150
 
     train_datagen = ImageDataGenerator(rescale=1./255)
-
+    
+    sys.stdout.write('Generating train files')
+    
     train_generator = train_datagen.flow_from_directory(
         images_address_tr,
         target_size=(x_pixels,y_pixels),
@@ -28,6 +28,8 @@ def train_conv_net():
     )
 
     test_datagen = ImageDataGenerator(rescale=1./255)
+    
+    sys.stdout.write('Generating test files')
 
     test_generator = train_datagen.flow_from_directory(
         images_address_ts,
@@ -54,10 +56,13 @@ def train_conv_net():
 
     model.compile(optimizer='adam', loss='sparse_crossentropy', metrics=['acc'])
 
+    sys.stdout.write('Training...')
+
     history = model.fit(
         train_generator,
         epochs=epochs
         )
+    sys.stdout.write('Training done!!!')
 
     acc = model.evaluate(test_generator)
 

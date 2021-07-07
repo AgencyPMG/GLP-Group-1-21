@@ -1,42 +1,52 @@
-import tensorflow as tf
+import numpy as np
+import pickle
 
+import tensorflow as tf
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from nltk.tokenize.casual import TweetTokenizer
+from nltk.stem import WordNetLemmatizer
 
 class Classifier(tf.keras.models.Model):
-    def __init__(self):
+    """
+    Classifier that abstracts TF model to make predictions
+    """
+    def __init__(self, model_dir, embedding_dim=50):
         super().__init__()
+        with open(model_dir + '/tokenizer.pickle', 'rb') as handle:
+            self.tokenizer = pickle.load(handle)
+
+        with open(model_dir + '/label_encoder.pickle', 'rb') as handle:
+            self.label_encoder = pickle.load(handle)
+
+        self.tweeter = TweetTokenizer()
+        self.lemma = WordNetLemmatizer()
+        self.vocab_size = len(self.tokenizer.word_index)
+        self.embedding_dim = embedding_dim
+
         self.language_model = tf.keras.Sequential([
-            tf.keras.layers.Embedding(vocab_size, EMBEDDING_DIM, weights=[embeddings_matrix], mask_zero=True),
+            tf.keras.layers.Embedding(self.vocab_size, self.embedding_dim, mask_zero=True),
             tf.keras.layers.Dropout(0.7),
-            tf.keras.layers.LSTM(512, return_sequences=True),
-            tf.keras.layers.Dropout(0.8), 
-            tf.keras.layers.LSTM(64),
-            tf.keras.layers.Dropout(0.8), 
+            tf.keras.layers.LSTM(512),
+            tf.keras.layers.Dropout(0.7), 
             tf.keras.layers.Flatten(),
-            tf.keras.layers.Dense(128, activation="relu"),
+            tf.keras.layers.Dense(64, activation="relu"),
             tf.keras.layers.Dropout(0.6),
-            tf.keras.layers.Dense(128, activation="relu"),
-            tf.keras.layers.Dropout(0.6),
-            tf.keras.layers.Dense(classes, activation='softmax')
+            tf.keras.layers.Dense(len(self.label_encoder.classes_), activation='softmax')
         ])
 
-        self.vision_model = tf.keras.Sequential([
-            tf.keras.layers.Conv2D(16, (3,3), activation='relu', input_shape=(x_pixels,y_pixels,3)),
-            tf.keras.layers.MaxPooling2D(2,2),
-            tf.keras.layers.Conv2D(32, (3,3), activation='relu'),
-            tf.keras.layers.MaxPooling2D(2,2),
-            tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
-            tf.keras.layers.MaxPooling2D(2,2),
-            tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
-            tf.keras.layers.MaxPooling2D(2,2),
-            tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
-            tf.keras.layers.MaxPooling2D(2,2),
-            tf.keras.layers.Flatten(input_shape=(x_pixels, y_pixels, 3)),
-            tf.keras.layers.Dense(x_pixels, activation='relu'),
-            tf.keras.layers.Dense(NUM_CLASSES, activation='softmax') 
-        ])
-
-    def predict():
-        pass
-
-    def load_data():
-        pass
+        self.language_model.load_weigts(model_dir + '/language_model_weights')
+        
+    def _process_seq(self, raw_seq):
+        out_seq = [self.lemma.lemmatize(word) for word in seq if word not in stopwords.words('english')]
+        out_seq = self.tokenizer.texts_to_sequences(out_seq)
+        out_seq = pad_sequences(out_seq, padding='post')
+        return out_seq[0]
+        
+    def predict(self, raw_seq):
+        """
+        Returns label and confidence
+        """
+        clearn_seq = self._process_seq(raw_seq)
+        preds = self.model.predict(clean_seq)
+        label = np.argmax(preds[-1,:])
+        return label, preds[label]

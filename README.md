@@ -9,7 +9,7 @@ make build
 ```
 Once the docker image is built, a container can be run using
 ```
-make run
+make up
 ```
 To stop a running container use
 ```

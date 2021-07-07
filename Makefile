@@ -6,3 +6,5 @@ stop:
 	docker stop s01
 clear:
 	docker container prune
+entry:
+	docker exec -it s01 bash

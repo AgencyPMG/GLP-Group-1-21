@@ -53,7 +53,7 @@ class PredictionPage extends Component {
                         </form>
                     </div>
                     <div className={"button-container"}>
-                        <a type="submit" href="/" id="return-button" className="btn-gradient blue">Return</a>
+                        <a type="submit" href="/" id={"return-button"} className="btn-gradient blue">Return</a>
                     </div>
                 </div>
             </div>

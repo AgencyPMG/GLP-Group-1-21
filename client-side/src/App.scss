@@ -17,12 +17,21 @@ input {
     text-align: center;
 }
 
+.logo-photo {
+    max-width: 484px;
+    max-height: 115px;
+
+}
 
 .page-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 70vh;
+}
+
+#second-page {
+    min-height: 100vh;
 }
 
 
@@ -34,11 +43,6 @@ input {
     margin-top: 15px;
     margin-bottom: 15px;
     border-radius: 10px;
-}
-
-.logo-photo {
-    width: 484px;
-    height: 115px;
 }
 
 body {
@@ -101,9 +105,21 @@ textarea {
 
 .button-container {
     display: flex;
-    justify-content: center;
+    justify-content: right;
+    width: 170%;
 }
 
+a#return-button {
+    height: 45px;
+    float: right;
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+
+#category-product {
+    width: 300px;
+}
 
 #root > div > div {
 }

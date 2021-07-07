@@ -7,7 +7,8 @@ WORKDIR /app
 ENV FLASK_APP=src/backend/api_app.py
 
 RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+    pip install -r requirements.txt && \
+    python -m nltk.downloader stopwords wordnet
 
 COPY . .
 

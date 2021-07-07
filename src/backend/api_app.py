@@ -13,9 +13,9 @@ clf = Classifier('src/backend/model')
 def predict():
     seq = request.args.get('seq')
     seq = seq.replace('+', ' ')
-    print(seq)
-    return jsonify(clf.predict(seq))
+    return clf.predict(seq)
 
 @app.route('/test', methods=['GET'])
 def test():
     return jsonify({'Hello': 'World!'})
+

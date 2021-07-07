@@ -54,6 +54,6 @@ class Classifier(tf.keras.models.Model):
         preds = self.language_model.predict(clean_seq)[0]
 
         return{
-            self.label_encoder.inverse_transform([i])[0]:pred
+            self.label_encoder.inverse_transform([i])[0]:str(pred)
             for i, pred in enumerate(preds)
         }

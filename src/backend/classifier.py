@@ -44,9 +44,15 @@ class Classifier(tf.keras.models.Model):
         
     def predict(self, raw_seq):
         """
-        Returns label and confidence
+        Return dict of schema
+        {
+            class (str): confidence (float)
+        }
         """
         clearn_seq = self._process_seq(raw_seq)
         preds = self.model.predict(clean_seq)
-        label = np.argmax(preds[-1,:])
-        return label, preds[label]
+
+        return{
+            self.label_encoder.inverse_transform(i):pred
+            for i, pred in enumerate(preds)
+        }

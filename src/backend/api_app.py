@@ -10,7 +10,7 @@ api = Api(app)
 # stub route to make sure requests from the frontend work
 @app.route('/predict', methods =['POST'])
 def predict():
-    
+
     itemDescription = request.form.get('description')
     gender = request.form.get('gender')
     age = request.form.get('age')

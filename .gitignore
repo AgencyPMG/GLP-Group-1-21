@@ -1,3 +1,4 @@
 src/train/data
 .vscode
 node_modules
+env

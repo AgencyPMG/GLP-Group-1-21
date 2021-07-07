@@ -1,6 +1,8 @@
 import React, {Component, useEffect} from 'react';
 import Logo from '../assets/PMG_Logo_CMYK_FullColor_RLSD.png';
 import axios from 'axios';
+import Logo from '../assets/PMG_Logo_CMYK_FullColor_RLSD (1).png';
+import PMGLogo from '../assets/PMG_Logo_CMYK_FullColor_RLSD (1).png'
 //import axios from 'axios';
 //import {AiOutlineSearch} from 'react-icons/ai';
 

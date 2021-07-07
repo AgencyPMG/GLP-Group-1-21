@@ -6,3 +6,4 @@ nltk
 sklearn
 flask_restful
 flask_cors
+nltk

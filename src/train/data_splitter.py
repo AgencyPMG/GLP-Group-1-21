@@ -40,6 +40,7 @@ def split_data(base, training, testing, split_size=0.9):
         return cat1, cat2, cat3, cat4, cat5
     
     def fill_directories(data, training, testing, cat, split_size=0.9):
+        random.seed(1)
         train = random.sample(data, round(split_size * len(data)))
         test = list(set(data) - set(train))
 

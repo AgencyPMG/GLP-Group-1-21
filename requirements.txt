@@ -4,3 +4,5 @@ flask
 pandas
 nltk
 sklearn
+flask_restful
+flask_cors

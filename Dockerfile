@@ -1,17 +1,14 @@
-FROM ubuntu:18.04
+FROM python:3
 
-RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev
-
-# We copy just the requirements.txt first to leverage Docker cache
 COPY ./requirements.txt /app/requirements.txt
 
 WORKDIR /app
 
-RUN pip install -r requirements.txt
+ENV FLASK_APP=src/backend/api_app.py
 
-COPY . /app
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
 
-ENTRYPOINT [ "python" ]
+COPY . .
 
-CMD [ "backend/api_app.py" ]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]

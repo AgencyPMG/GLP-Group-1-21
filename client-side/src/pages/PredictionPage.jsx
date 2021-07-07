@@ -49,6 +49,7 @@ class PredictionPage extends Component {
                     <div className={"category-container"}>
                         <form onSubmit={this.handleSubmit}>
                             <input id={"category-product"} className={"input-form"} type={"text"} name={"category-product"} placeholder={"Enter the correct category"} onChange={this.handleInputChanged}/>
+
                             <button type="submit" id="search-button" className="btn-gradient blue">Submit</button>
                         </form>
                     </div>

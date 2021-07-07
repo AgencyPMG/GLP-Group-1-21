@@ -20,3 +20,19 @@ If rebuilding an image, errors can sometime occur when trying to run a new conta
 make clear
 ```
 and from there rerun the container.
+
+**Note:**
+To load weights for the Language Model you must have the following file structure
+```
+src/
+|_backend/
+|__model/
+|___label_encoder.pickle
+|___tokenizer.pickle
+|___language_model_weights.index
+|___language_model_weights.data
+```
+To create the files for the model you can run 
+```
+python src/train/train_LM.py
+```

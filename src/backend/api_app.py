@@ -8,8 +8,10 @@ CORS(app)
 api = Api(app)
 
 # stub route to make sure requests from the frontend work
-@app.route('/predict', methods =['POST'])
+@app.route('/predict', methods =['GET'])
 def predict():
+
+    return jsonify({'something': 'world'})
 
     itemDescription = request.form.get('description')
     gender = request.form.get('gender')

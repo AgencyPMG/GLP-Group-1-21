@@ -10,9 +10,12 @@ clf = Classifier('src/backend/model')
 
 # stub route to make sure requests from the frontend work
 @app.route('/predict', methods=['GET'])
-def predict(seq):
-    return Jsonify(clf.predict(seq))
+def predict():
+    seq = request.args.get('seq')
+    seq = seq.replace('+', ' ')
+    print(seq)
+    return jsonify(clf.predict(seq))
 
-@app.rout('/test', methods=['GET'])
+@app.route('/test', methods=['GET'])
 def test():
-    return Jsonify({'Hello': 'World!'})
+    return jsonify({'Hello': 'World!'})

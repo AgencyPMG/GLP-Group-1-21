@@ -73,7 +73,7 @@ export default class DataForm extends Component {
         return (
             <div className={'page-container'}>
                 <div className={"form-container"}>
-                        <img src={Logo} className={"logo-photo"} alt={"PMG Logo"}/>
+                    <img src={Logo} className={"logo-photo"} alt={"PMG Logo"}/>
                         <h1 className="heading">Find Product Category</h1>
                     <div className={"container"}>
                             <form onSubmit={this.handleSubmit}>

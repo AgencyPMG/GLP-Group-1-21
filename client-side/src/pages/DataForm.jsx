@@ -1,11 +1,10 @@
 import React, {Component, useEffect} from 'react';
 import Logo from '../assets/PMG_Logo_CMYK_FullColor_RLSD.png';
+import axios from 'axios';
 //import axios from 'axios';
 //import {AiOutlineSearch} from 'react-icons/ai';
 
 //file upload component
-
-
 
 export default class DataForm extends Component {
     constructor(props) {
@@ -16,12 +15,13 @@ export default class DataForm extends Component {
             age: '',
             gender: '',
             size: '',
-            image_url: ''
+            image_url: '',
+            isLoaded: false,
+            errorMessage: ''
         };
         this.handleInputChanged = this.handleInputChanged.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
 
     //*********************************************************
     //for file upload and all
@@ -30,6 +30,7 @@ export default class DataForm extends Component {
     handleFileChange = event => {
         this.setState({picture: event.target.files[0]});
     }
+
     handleFileUpload = () => {
         const fileData = new FormData();
 
@@ -42,9 +43,6 @@ export default class DataForm extends Component {
         console.log('file uploaded');
 
         //axios.post('', fileData);
-
-
-
     }
 */
 
@@ -54,20 +52,28 @@ export default class DataForm extends Component {
         this.setState({[ e.target.name]: e.target.value });
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
         this.props.history.push('/predict') //redirects to predict route
 
 
-/*        axios
-            .post('', search)
-            .then(() => console.log('search made'))
-            .catch(err => {
-                console.log(err);
-            })*/
+        // test body form to trigger backend response
+        var bodyFormData = new FormData();
+        bodyFormData.append('description', 'example description');
+        bodyFormData.append('imageData', 'example image stub');
 
+        await axios.post('http://127.0.0.1:5000/predict', bodyFormData)
+            .then((result) => {
+                this.setState({
+                    isLoaded: true,
+                    data: result,
+                })
+            })
+            .catch(error => {
+                this.setState({errorMessage: error.message});
+                console.error('There was an error!', error);
+            });
     };
-
 
     render() {
         return (
@@ -86,8 +92,8 @@ export default class DataForm extends Component {
                                 <input className={"input-form"}  type={"text"} name={"image-url"} placeholder={"image url"} onChange={this.handleInputChanged}/>
                                 <button type="submit" id="search-button" className="btn-gradient blue">Submit</button>
                             </form>
-                    </div>
                 </div>
+            </div>
             </div>
         )
     }

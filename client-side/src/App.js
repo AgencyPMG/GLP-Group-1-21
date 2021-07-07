@@ -1,5 +1,5 @@
 import './App.scss';
-import './index.css'
+import './index.css';
 import React, { Component } from "react";
 //import pages for router
 import {

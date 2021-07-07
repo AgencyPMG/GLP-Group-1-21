@@ -1,4 +1,5 @@
 @import 'styles/background.scss';
+@import 'styles/button.scss';
 * {
     font-family: 'Roboto Condensed', sans-serif;
 }
@@ -16,6 +17,11 @@ input {
     text-align: center;
 }
 
+.logo-photo {
+    max-width: 484px;
+    max-height: 115px;
+
+}
 
 .page-container {
     display: flex;
@@ -24,26 +30,32 @@ input {
     min-height: 70vh;
 }
 
+#second-page {
+    min-height: 90vh;
+}
+
 
 
 .form-container {
-    background-color: rgba(255, 255, 255, .15);
-    backdrop-filter: blur(2px);
+
     padding: 150px;
-    border: .1px solid rgb(144, 144, 144);
+    //border: .1px solid rgb(144, 144, 144);
     margin-top: 15px;
     margin-bottom: 15px;
     border-radius: 10px;
 }
 
+body {
+    background-color: rgba(255, 255, 255, .15);
+    backdrop-filter: blur(3px);
+}
+
 .pred-container {
     background-color: rgba(255, 255, 255, .15);
     backdrop-filter: blur(2px);
-    padding: 50px;
-    margin-right: 50px;
-    margin-left: 50px;
+    padding: 50px 300px;
+
     border: .1px solid rgb(144, 144, 144);
-    margin-top: 75px;
     margin-bottom: 15px;
     border-radius: 10px;
 
@@ -51,13 +63,14 @@ input {
 
 .pred-container h1, h2 {
     font-weight: bold;
-    color: #4366a0;
+    color: #608fbd;
 }
 
 .heading {
     text-align: center;
     font-weight: bold;
-    color: #4366a0;
+    color: #618ebd;
+    margin-top: 10px;
 }
 
 
@@ -89,9 +102,25 @@ textarea {
     margin-left: auto;
     margin-right: auto;
     display: block;
-
 }
 
+.button-container {
+    display: flex;
+    justify-content: right;
+    width: 170%;
+}
+
+a#return-button {
+    height: 45px;
+    float: right;
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+
+#category-product {
+    width: 300px;
+}
 
 #root > div > div {
 }
@@ -101,7 +130,7 @@ textarea {
 .table-container {
     display:flex;
     justify-content: center;
-
+    margin: 15px;
 }
 
 table {

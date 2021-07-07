@@ -1,4 +1,5 @@
 import React, {Component, useEffect} from 'react';
+import Logo from '../assets/PMG_Logo_CMYK_FullColor_RLSD.png';
 import axios from 'axios';
 //import axios from 'axios';
 //import {AiOutlineSearch} from 'react-icons/ai';
@@ -78,6 +79,7 @@ export default class DataForm extends Component {
         return (
             <div className={'page-container'}>
                 <div className={"form-container"}>
+                    <img src={Logo} className={"logo-photo"} alt={"PMG Logo"}/>
                         <h1 className="heading">Find Product Category</h1>
                     <div className={"container"}>
                             <form onSubmit={this.handleSubmit}>
@@ -88,9 +90,7 @@ export default class DataForm extends Component {
                                 <input className={"input-form"}  type={"text"} name={"age"} placeholder={"age group"} onChange={this.handleInputChanged}/>
                                 <input className={"input-form"}  type={"text"} name={"size"} placeholder={"size"} onChange={this.handleInputChanged}/>
                                 <input className={"input-form"}  type={"text"} name={"image-url"} placeholder={"image url"} onChange={this.handleInputChanged}/>
-                                <button type="submit" id="search-button" className="btn btn-primary">
-                                    <i>Search</i>
-                                </button>
+                                <button type="submit" id="search-button" className="btn-gradient blue">Submit</button>
                             </form>
                 </div>
             </div>

@@ -34,16 +34,27 @@ class PredictionPage extends Component {
 
     render() {
         return (
-            <div className={"pred-container"}>
-                <h1>Model Prediction</h1>
-                <h2 className={"heading-pred"}>Confidence Prediction Table</h2>
-                <div className={"table-container"}>
-                    <table id={"categories"}>
-                        <tbody>
-                        <tr>{this.renderTableHeader()}</tr>
-                        {this.renderTableData()}
-                        </tbody>
-                    </table>
+            <div className={"page-container"} id={"second-page"}>
+                <div className={"pred-container"}>
+                    <h1>Model Prediction</h1>
+                    <h2 className={"heading-pred"}>Confidence Prediction Table</h2>
+                    <div className={"table-container"}>
+                        <table id={"categories"}>
+                            <tbody>
+                            <tr>{this.renderTableHeader()}</tr>
+                            {this.renderTableData()}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className={"category-container"}>
+                        <form onSubmit={this.handleSubmit}>
+                            <input className={"input-form"} id="category-product" type={"text"} name={"correct-category"} placeholder={"Enter Correct Category"} onChange={this.handleInputChanged}/>
+                            <button type="submit" id="search-button" className="btn-gradient blue">Submit</button>
+                        </form>
+                    </div>
+                    <div className={"button-container"}>
+                        <a type="submit" href="/" id={"return-button"} className="btn-gradient blue">Return</a>
+                    </div>
                 </div>
             </div>
         )

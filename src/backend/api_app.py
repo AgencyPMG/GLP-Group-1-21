@@ -10,7 +10,7 @@ api = Api(app)
 # stub route to make sure requests from the frontend work
 @app.route('/predict', methods =['POST'])
 def predict():
-    
+
     itemDescription = request.form.get('description')
     gender = request.form.get('gender')
     age = request.form.get('age')
@@ -20,5 +20,3 @@ def predict():
     response = jsonify({'description': itemDescription,'gender':gender,'age':age,'size':size,'image-url':image_url})
     return response
 
-if __name__ == '__main__':
-	app.run(host='0.0.0.0')

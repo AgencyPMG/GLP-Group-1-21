@@ -20,5 +20,3 @@ def predict():
     response = jsonify({'description': itemDescription,'gender':gender,'age':age,'size':size,'image-url':image_url})
     return response
 
-if __name__ == '__main__':
-	app.run(host='0.0.0.0')

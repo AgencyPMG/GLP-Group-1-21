@@ -38,10 +38,12 @@ class Classifier(tf.keras.models.Model):
         self.language_model.load_weights(model_dir + '/language_model_weights')
 
     def _process_seq(self, raw_seq):
-        out_seq = [self.lemma.lemmatize(word) for word in raw_seq if word not in stopwords.words('english')]
-        out_seq = self.tokenizer.texts_to_sequences(out_seq)
-        out_seq = pad_sequences(out_seq, padding='post')
-        return out_seq[0]
+        out_seq = self.tweeter.tokenize(raw_seq)
+        out_seq = [self.lemma.lemmatize(word) for word in out_seq if word not in stopwords.words('english')]
+        out_seq = ' '.join(out_seq)
+        out_seq = self.tokenizer.texts_to_sequences([out_seq])
+        out_seq = pad_sequences(out_seq, padding='post', maxlen=125)
+        return np.array(out_seq)
 
     def predict(self, raw_seq):
         """

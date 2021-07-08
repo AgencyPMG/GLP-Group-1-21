@@ -15,8 +15,6 @@ def predict():
     seq = seq.replace('+', ' ')
     return clf.predict(seq)
 
-
 @app.route('/test', methods=['GET'])
 def test():
     return jsonify({'Hello': 'World!'})
-

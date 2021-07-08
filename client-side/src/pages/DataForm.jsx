@@ -18,7 +18,8 @@ export default class DataForm extends Component {
             size: '',
             image_url: '',
             isLoaded: false,
-            errorMessage: ''
+            errorMessage: '',
+            data: ''
         };
         this.handleInputChanged = this.handleInputChanged.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -55,32 +56,38 @@ export default class DataForm extends Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        this.props.history.push('/predict') //redirects to predict route
-
 
         // test body form to trigger backend response
-        var bodyFormData = new FormData();
-        bodyFormData.append('description', 'example description');
-        bodyFormData.append('imageData', 'example image stub');
+        //var bodyFormData = new FormData();
+        //bodyFormData.append('description', this.state.description);
+        //bodyFormData.append('imageData', 'example image stub');
+        var bodyFormData = this.state.description + '+' + this.state.gender + '+' + this.state.age+ '+' +
+            this.state.size+ '+' + this.state.image_url;
 
-        await axios.post('http://127.0.0.1:5000/predict', bodyFormData)
+        await axios.get('http://127.0.0.1:5000/predict?seq=' + bodyFormData)
             .then((result) => {
-                this.setState({
-                    isLoaded: true,
-                    data: result,
-                })
+                //console.log(result);
+               // this.setState({
+               //     isLoaded: true,
+                //    data: result,
+                //})
+                this.setState({data: result})
             })
             .catch(error => {
                 this.setState({errorMessage: error.message});
                 console.error('There was an error!', error);
             });
+        this.props.history.push({
+            pathname: '/predict',
+            data: this.state.data}) //redirects to predict route
     };
+
 
     render() {
         return (
             <div className={'page-container'}>
                 <div className={"form-container"}>
-                        <img className={"logo-photo"} src={Logo} alt={"PMG Logo"}/>
+                    <img src={Logo} className={"logo-photo"} alt={"PMG Logo"}/>
                         <h1 className="heading">Find Product Category</h1>
                     <div className={"container"}>
                             <form onSubmit={this.handleSubmit}>

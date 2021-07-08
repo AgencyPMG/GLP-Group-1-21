@@ -18,4 +18,3 @@ def predict():
 @app.route('/test', methods=['GET'])
 def test():
     return jsonify({'Hello': 'World!'})
-

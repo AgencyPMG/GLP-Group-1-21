@@ -1,27 +1,21 @@
 import React, { Component, useEffect } from 'react';
-//import axios from 'axios';
-import DataForm from "./DataForm";
+
 
 class PredictionPage extends Component {
     constructor(props) {
         super(props)
-        //this.categories = this.props.location.data.data;
-            //this.state.data = this.props.location;
-            //const { data } = this.props.location
             this.state = {
                 //add global variable here -- not thread safe
                 categories: this.props.location.data.data
             };
 
             console.log(this.state.categories);
-            //this works
     }
 
     renderTableData() {
-        //just make an array
+        //make an array to convert dictionary to list of objects
         var arr = [];
         for (var key of Object.entries(this.state.categories)) {
-            //var obj = {key[0] : key[1]};
             var cat = key[0];
             var val = key[1];
             console.log(cat)
@@ -43,7 +37,6 @@ class PredictionPage extends Component {
     }
 
     renderTableHeader() {
-        //console.log(Object.keys(this.state.categories))
         let header = ['Category', 'Predictions']
         return header.map((key, index) => {
             return <th key={index}>{key.toUpperCase()}</th>

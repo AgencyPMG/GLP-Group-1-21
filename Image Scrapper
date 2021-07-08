@@ -1,23 +1,18 @@
 from bs4 import BeautifulSoup
 import requests
 import urllib.request
-
-from google.colab import drive
-drive.mount('/content/drive')
-
 import pandas as pd
-df = pd.read_csv('/content/drive/MyDrive/Ralph_Lauren_Retail_Feed.csv')
-print(df.shape)
-df.head()
+
+final static data_path = '/content/drive/MyDrive/Ralph_Lauren_Retail_Feed.csv'
+
+def scrap_images(data_path)
+df = pd.read_csv(data_path)
 
 for i in range(len(df)):
-  print (i)
   html_page = requests.get(df['url'][i])
   soup = BeautifulSoup(html_page.content, 'html.parser')
-  images = []
-  for img in soup.findAll('img'):
-      images.append(img.get('data-img'))
-  images = [i for i in images if i]
+  
+  images = [img.get('data-img') for img in soup.findAll('img') if img]
 
   # setting filename and image URL
   prod_type = df['product_type'][i]
@@ -26,9 +21,13 @@ for i in range(len(df)):
   if images:
     image_url = images[0]
 
+  
   # calling urlretrieve function to get resource
   response = requests.get(image_url)
 
   file = open(filename, "wb")
   file.write(response.content)
   file.close()
+
+if __name__ == '__main__':
+  scrap_images(data_path)

@@ -1,11 +1,7 @@
 import React, {Component, useEffect} from 'react';
 import axios from 'axios';
 import Logo from '../assets/PMG_Logo_CMYK_FullColor_RLSD (1).png';
-import PMGLogo from '../assets/PMG_Logo_CMYK_FullColor_RLSD (1).png'
-//import axios from 'axios';
-//import {AiOutlineSearch} from 'react-icons/ai';
 
-//file upload component
 
 export default class DataForm extends Component {
     constructor(props) {
@@ -57,20 +53,12 @@ export default class DataForm extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
 
-        // test body form to trigger backend response
-        //var bodyFormData = new FormData();
-        //bodyFormData.append('description', this.state.description);
-        //bodyFormData.append('imageData', 'example image stub');
         var bodyFormData = this.state.description + '+' + this.state.gender + '+' + this.state.age+ '+' +
             this.state.size+ '+' + this.state.image_url;
 
         await axios.get('http://127.0.0.1:5000/predict?seq=' + bodyFormData)
             .then((result) => {
-                //console.log(result);
-               // this.setState({
-               //     isLoaded: true,
-                //    data: result,
-                //})
+
                 this.setState({data: result})
             })
             .catch(error => {
@@ -91,7 +79,6 @@ export default class DataForm extends Component {
                         <h1 className="heading">Find Product Category</h1>
                     <div className={"container"}>
                             <form onSubmit={this.handleSubmit}>
-                                {/*make into a text box, make button below*/}
                                 {/*<input className={"file-upload"} type={"file"} name={"file"}/>*/}
                                 <textarea className={"text-box"} name={"description"} placeholder={"Description"} onChange={this.handleInputChanged}/>
                                 <input className={"input-form"} type={"text"} name={"gender"} placeholder={"gender"} onChange={this.handleInputChanged}/>

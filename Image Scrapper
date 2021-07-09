@@ -1,12 +1,11 @@
+DATA_PATH = '/content/drive/MyDrive/Ralph_Lauren_Retail_Feed.csv'
+
 from bs4 import BeautifulSoup
 import requests
 import urllib.request
 import pandas as pd
 
-final static data_path = '/content/drive/MyDrive/Ralph_Lauren_Retail_Feed.csv'
-
-def scrap_images(data_path)
-df = pd.read_csv(data_path)
+def scrap_images(df)
 
 for i in range(len(df)):
   html_page = requests.get(df['url'][i])
@@ -30,4 +29,5 @@ for i in range(len(df)):
   file.close()
 
 if __name__ == '__main__':
-  scrap_images(data_path)
+  df = pd.read_csv(DATA_PATH)
+  scrap_images(df)

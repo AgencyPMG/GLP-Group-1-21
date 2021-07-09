@@ -1,0 +1,33 @@
+DATA_PATH = '/content/drive/MyDrive/Ralph_Lauren_Retail_Feed.csv'
+
+from bs4 import BeautifulSoup
+import requests
+import urllib.request
+import pandas as pd
+
+def scrap_images(df)
+
+for i in range(len(df)):
+  html_page = requests.get(df['url'][i])
+  soup = BeautifulSoup(html_page.content, 'html.parser')
+  
+  images = [img.get('data-img') for img in soup.findAll('img') if img]
+
+  # setting filename and image URL
+  prod_type = df['product_type'][i]
+  sku = df['sku'][i]
+  filename = 'Images/'+prod_type+'_'+sku+'.jpg'
+  if images:
+    image_url = images[0]
+
+  
+  # calling urlretrieve function to get resource
+  response = requests.get(image_url)
+
+  file = open(filename, "wb")
+  file.write(response.content)
+  file.close()
+
+if __name__ == '__main__':
+  df = pd.read_csv(DATA_PATH)
+  scrap_images(df)
